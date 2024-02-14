@@ -79,14 +79,20 @@ export class GCP extends KMSProvider {
     }
 
     /**
-     * Creates a new cryptographic key in GCP KMS.
-     * @param cryptoKeyId Optional identifier for the new crypto key (UUIDv4 by default).
-     * @returns Promise resolving to the ID of the created crypto key.
+     * Asynchronously creates a new cryptographic key within a specified key ring in Google Cloud Platform's Key Management Service (GCP KMS).
+     * This method allows for the specification of the protection level for the key, with options for hardware security module (HSM)
+     * or software-based protection. It generates a unique identifier for the key, constructs the cryptographic key with the specified
+     * protection level, and associates it with a key ring defined by the `path` property of the class instance.
+     *
+     * @param {'HSM' | 'SOFTWARE'} [protectionLevel='SOFTWARE'] - The desired protection level for the new cryptographic key.
+     * @returns {Promise<string>} A promise that resolves to the unique identifier (UUID) of the newly created cryptographic key.
+     * @throws {Error} Throws an error if the path to the key ring is undefined or if the key creation fails in GCP KMS.
      */
-    async createKey(cryptoKeyId = uuidv4()) : Promise<string> {
+    async createKey(protectionLevel: 'HSM' | 'SOFTWARE' = 'SOFTWARE') : Promise<string> {
         if (!this.path) {
             throw "this.path is undefined";
         }
+        const cryptoKeyId = uuidv4();
         const [key] = await this.kms.createCryptoKey({
             parent: this.kms.keyRingPath(this.path.projectId, this.path.locationId, this.path.keyRingId),
             cryptoKeyId: cryptoKeyId,
@@ -94,10 +100,8 @@ export class GCP extends KMSProvider {
                 purpose: 'ASYMMETRIC_SIGN',
                 versionTemplate: {
                     algorithm: 'EC_SIGN_SECP256K1_SHA256',
-                    protectionLevel: 'HSM'
-                },
-                // Optional: customize how long key versions should be kept before destroying.
-                // destroyScheduledDuration: {seconds: 60 * 60 * 24},
+                    protectionLevel: protectionLevel
+                }
             }
         });
         if (!key.name) {
