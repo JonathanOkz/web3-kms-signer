@@ -40,7 +40,7 @@ const awsConfig = {
 
 const kmsProvider = new KMSProvider.AWS(awsConfig);
 
-// If you haven't yet generated keys in AWS KMS, follow the steps below to create a new asymmetric signing key with the appropriate configurations.
+// If you haven't yet generated keys in AWS KMS, follow this step to create a new asymmetric signing key with the appropriate configurations.
 const keyId = await kmsProvider.createKey();
 ```
 
@@ -54,18 +54,23 @@ const gcpConfig = {
 };
 const kmsProvider = new KMSProvider.GCP(gcpConfig);
 
-// If you haven't yet generated key-ring in GCP KMS, follow the steps below :
+// If you haven't yet generated key-ring in GCP KMS, follow this step :
 // This step is required only once before beginning; afterwards, you'll just need the `key-ring-id`.
-const keyRing = await kmsProvider.createKeyRing("key-ring-id");
+const keyRingId = await kmsProvider.createKeyRing("key-ring-id");
 
 kmsProvider.setPath({
         projectId: "your-gcp-project-id",
         locationId: "your-gcp-location-id",
-        keyRingId: keyRing
+        keyRingId: keyRingId
     });
 
-// If you haven't yet generated keys in GCP KMS, follow the steps below to create a new asymmetric signing key with the appropriate configurations.
+// If you haven't yet generated keys in GCP KMS, follow this step to create a new asymmetric signing key with the appropriate configurations.
 const keyId = await kmsProvider.createKey();
+
+// You can choose between 'HSM' and 'SOFTWARE' (default is 'SOFTWARE')
+// HSM offer stronger security than software solutions, but are more expensive. The choice depends on your security needs and budget.
+const keyId = await kmsProvider.createKey('HSM');
+const keyId = await kmsProvider.createKey('SOFTWARE');
 ```
 
 ### HD Wallets
@@ -120,7 +125,6 @@ const txData = {
 };
 
 const signedTx = await signer.signTransaction({ KeyId: 'keyId' }, txData);
-// Now you can send this signed transaction through Blockchain
 ```
 
 Signing Messages
@@ -308,15 +312,13 @@ Ensuring the security of cryptographic keys and transactions is paramount in the
 
 **Key Management Services** offer robust mechanisms for managing cryptographic keys in a secure, centralized manner. Here's how to maximize security when using KMS:
 
-1. **Access Control**: Restrict access to your KMS keys by defining precise IAM (Identity and Access Management) policies. Only grant necessary permissions to the roles or users that require them to perform their job functions.
+1. **Access Control**: Restrict access to your KMS keys by defining precise IAM policies. Only grant necessary permissions to the roles or users that require them to perform their job functions.
 
 2. **Audit Logs**: Enable audit logging features such as AWS CloudTrail or Google Cloud Audit Logs. These services record API calls, including calls made to the KMS, providing valuable insights into usage patterns and potentially unauthorized access attempts.
 
 3. **Key Rotation**: Take advantage of automatic key rotation features to change the cryptographic material of a key regularly. This practice limits the amount of data encrypted under a single key, reducing the impact of a potential compromise.
 
 4. **Multi-Region Keys**: For critical applications, consider replicating keys across multiple regions. This approach enhances the availability and redundancy of your cryptographic keys.
-
-5. **Encryption in Transit**: Ensure that all communications with the KMS are encrypted using TLS to protect against eavesdropping and man-in-the-middle attacks.
 
 ### HD Wallet Security
 
@@ -329,17 +331,6 @@ Ensuring the security of cryptographic keys and transactions is paramount in the
 3. **Separation of Concerns**: Use different accounts or derivation paths for different applications or purposes. This approach limits the risk to your assets if one account is compromised.
 
 4. **Client-Side Operations**: Perform sensitive operations like seed phrase generation and key derivation client-side, in a secure, isolated environment. Never transmit your seed phrase or private keys over the network.
-
-
-### General Security Considerations
-
-For both KMS and HD Wallets, practicing general security hygiene is crucial:
-
-- **Strong Authentication**: Use multi-factor authentication (MFA) wherever possible to add an additional layer of security.
-- **Regular Audits**: Conduct regular security audits of your infrastructure and practices. Consider engaging with professional security firms for external audits.
-- **Security Training**: Ensure that all team members handling keys or developing blockchain applications are trained in security best practices.
-
-By implementing these practices, you can significantly enhance the security of your blockchain applications and protect your cryptographic assets.
 
 ## Contributing
 
