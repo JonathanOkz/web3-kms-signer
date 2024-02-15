@@ -38,7 +38,7 @@ npm install @web3-kms-signer/kms-provider-gcp
 
 Set up the right `Provider` instance before signing transactions or messages. Choose a wallet type based on your requirements, such as KMS-based wallets or Hierarchical Deterministic (HD) wallets.
 
-### KMS Wallets
+### KMS Provider
 
 #### Using AWS KMS
 
@@ -88,7 +88,7 @@ const keyId = await kmsProvider.createKey('HSM');
 const keyId = await kmsProvider.createKey('SOFTWARE');
 ```
 
-### HD Wallets
+### HD Provider
 
 ```javascript
 import { HDProviderNode } from "@web3-kms-signer/hd-provider-node";
@@ -109,7 +109,7 @@ const keyId = UBIP44.keyId({index: 67}); // => "0'/0/67"
 
 ## Signing Transactions and Messages
 
-For KMSWallets
+KMS wallets initialization
 
 ```javascript
 import { Signer } from "@web3-kms-signer/core";
@@ -119,7 +119,7 @@ const chainId = 3; // Ropsten
 const signer = new Signer(new KMSWallets(kmsProvider), chainId);
 ```
 
-For HDWallets
+HD wallets initialization
 
 ```javascript
 import { Signer } from "@web3-kms-signer/core";
@@ -153,7 +153,7 @@ const signedMessage = await signer.signMessage({ KeyId: 'keyId' }, message);
 
 ## Complete implementation to sign and send transactions on Blockchain
 
-### KMS Wallets
+### KMS implementation
 
 #### Using AWS KMS
 
@@ -238,7 +238,7 @@ web3.eth.sendSignedTransaction(signedTx)
 });
 ```
 
-### HD Wallets
+### HD implementation
 
 ```javascript
 import { Signer } from "@web3-kms-signer/core";
@@ -275,7 +275,7 @@ web3.eth.sendSignedTransaction(signedTx)
 
 ## Complete implementation to sign a message
 
-### KMS Wallets
+### KMS implementation
 
 #### Using AWS KMS
 
@@ -319,7 +319,7 @@ const signedMessage = await signer.signMessage({ KeyId: 'keyId' }, "my message")
 
 ```
 
-### HD Wallets
+### HD implementation
 
 ```javascript
 import { Signer } from "@web3-kms-signer/core";
