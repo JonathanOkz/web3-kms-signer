@@ -48,7 +48,7 @@ import { KMSProviderAWS } from "@web3-kms-signer/kms-provider-aws";
 const awsConfig = {
     region: 'us-east-1',
     credentials: {
-        accessKeyId: 'YOUR_AWS_ACCESS_KEY_ID',
+        accesskeyId: 'YOUR_AWS_ACCESS_KEY_ID',
         secretAccessKey: 'YOUR_AWS_SECRET_ACCESS_KEY'
     }
 };
@@ -93,10 +93,10 @@ const keyId = await kmsProvider.createKey('SOFTWARE');
 ```javascript
 import { HDProviderNode } from "@web3-kms-signer/hd-provider-node";
 
-const mnemonic = "your mnemonic phrase here";
+const mnemonic = "relief material pool snap swing alien fiction total october mesh eyebrow idea";
 const hdProvider = new HDProviderNode(mnemonic);
 
-// With HD Wallets, the `KeyId` is the derivation path, which specifies the route through which individual keys are generated from the master seed.
+// With HD Wallets, the `keyId` is the derivation path, which specifies the route through which individual keys are generated from the master seed.
 const keyId = "0'/0/1"
 
 // A tool is available for generating derivation path easier.
@@ -141,14 +141,14 @@ const txData = {
     data: '0x0', // Data payload if any
 };
 
-const signedTx = await signer.signTransaction({ KeyId: 'keyId' }, txData);
+const signedTx = await signer.signTransaction({ keyId: 'keyId' }, txData);
 ```
 
 Signing Messages
 
 ```javascript
 const message = "hello world !";
-const signedMessage = await signer.signMessage({ KeyId: 'keyId' }, message);
+const signedMessage = await signer.signMessage({ keyId: 'keyId' }, message);
 ```
 
 ## Complete implementation to sign and send transactions on Blockchain
@@ -166,7 +166,7 @@ import  web3  from  "web3";
 const awsConfig = {
     region: 'us-east-1',
     credentials: {
-        accessKeyId: 'YOUR_AWS_ACCESS_KEY_ID',
+        accesskeyId: 'YOUR_AWS_ACCESS_KEY_ID',
         secretAccessKey: 'YOUR_AWS_SECRET_ACCESS_KEY'
     }
 };
@@ -184,7 +184,7 @@ const txData = {
     data: '0x0', // Data payload if any
 };
 
-const signedTx = await signer.signTransaction({ KeyId: 'aws keyId' /*defined before*/ }, txData);
+const signedTx = await signer.signTransaction({ keyId: 'aws keyId' /*defined before*/ }, txData);
 
 web3.eth.sendSignedTransaction(signedTx)
 .on('confirmation', (confirmationNumber : number, receipt : any) => {
@@ -226,7 +226,7 @@ const txData = {
     data: '0x0', // Data payload if any
 };
 
-const signedTx = await signer.signTransaction({ KeyId: 'gcp keyId' /*defined before*/ }, txData);
+const signedTx = await signer.signTransaction({ keyId: 'gcp keyId' /*defined before*/ }, txData);
 
 web3.eth.sendSignedTransaction(signedTx)
 .on('confirmation', (confirmationNumber : number, receipt : any) => {
@@ -246,7 +246,7 @@ import { HDWallets } from "@web3-kms-signer/hd-wallets";
 import { HDProviderNode } from "@web3-kms-signer/hd-provider-node";
 import  web3  from  "web3";
 
-const mnemonic = "your mnemonic phrase here";
+const mnemonic = "relief material pool snap swing alien fiction total october mesh eyebrow idea";
 const hdProvider = new HDProviderNode(mnemonic);
 
 const chainId = 3; // Ropsten
@@ -261,7 +261,7 @@ const txData = {
     data: '0x0', // Data payload if any
 };
 
-const signedTx = await signer.signTransaction({ KeyId: 'derivation path' }, txData);
+const signedTx = await signer.signTransaction({ keyId: 'derivation path' }, txData);
 
 web3.eth.sendSignedTransaction(signedTx)
 .on('confirmation', (confirmationNumber : number, receipt : any) => {
@@ -287,14 +287,14 @@ import { KMSProviderAWS } from "@web3-kms-signer/kms-provider-aws";
 const awsConfig = {
     region: 'us-east-1',
     credentials: {
-        accessKeyId: 'YOUR_AWS_ACCESS_KEY_ID',
+        accesskeyId: 'YOUR_AWS_ACCESS_KEY_ID',
         secretAccessKey: 'YOUR_AWS_SECRET_ACCESS_KEY'
     }
 };
 const kmsProvider = new KMSProviderAWS(awsConfig);
 
 const signer = new Signer(new KMSWallets(kmsProvider));
-const signedMessage = await signer.signMessage({ KeyId: 'keyId' }, "my message");
+const signedMessage = await signer.signMessage({ keyId: 'keyId' }, "my message");
 ```
 
 #### Using GCP KMS
@@ -315,7 +315,7 @@ kmsProvider.setPath({
     });
 
 const signer = new Signer(new KMSWallets(kmsProvider));
-const signedMessage = await signer.signMessage({ KeyId: 'keyId' }, "my message");
+const signedMessage = await signer.signMessage({ keyId: 'keyId' }, "my message");
 
 ```
 
@@ -326,11 +326,11 @@ import { Signer } from "@web3-kms-signer/core";
 import { HDWallets } from "@web3-kms-signer/hd-wallets";
 import { HDProviderNode } from "@web3-kms-signer/hd-provider-node";
 
-const mnemonic = "your mnemonic phrase here";
+const mnemonic = "relief material pool snap swing alien fiction total october mesh eyebrow idea";
 const hdProvider = new HDProviderNode(mnemonic);
 
 const signer = new Signer(new HDWallets(hdProvider));
-const signedMessage = await signer.signMessage({ KeyId: 'keyId' }, "my message");
+const signedMessage = await signer.signMessage({ keyId: 'keyId' }, "my message");
 ```
 
 ## Security Best Practices
