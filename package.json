@@ -34,7 +34,6 @@
     "@google-cloud/kms": "^3.3.0",
     "asn1js": "^3.0.5",
     "bn.js": "^5.2.1",
-    "crypto": "^1.0.1",
     "ethers": "^6.4.1",
     "fast-crc32c": "^2.0.0",
     "uuid": "^8.3.2"
