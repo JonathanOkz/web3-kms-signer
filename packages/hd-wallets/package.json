@@ -1,6 +1,6 @@
 {
   "name": "@web3-kms-signer/hd-wallets",
-  "version": "1.0.1",
+  "version": "1.0.4",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
