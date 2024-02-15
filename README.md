@@ -23,7 +23,6 @@ For hd wallets :
 
 ```bash
 npm install @web3-kms-signer/hd-wallets
-npm install @web3-kms-signer/hd-provider-node
 ```
 
 For kms wallets :
@@ -88,25 +87,6 @@ const keyId = await kmsProvider.createKey('HSM');
 const keyId = await kmsProvider.createKey('SOFTWARE');
 ```
 
-### HD Provider
-
-```javascript
-import { HDProviderNode } from "@web3-kms-signer/hd-provider-node";
-
-const mnemonic = "relief material pool snap swing alien fiction total october mesh eyebrow idea";
-const hdProvider = new HDProviderNode(mnemonic);
-
-// With HD Wallets, the `keyId` is the derivation path, which specifies the route through which individual keys are generated from the master seed.
-const keyId = "0'/0/1"
-
-// A tool is available for generating derivation path easier.
-// Please see various use cases below :
-const keyId = UBIP44.keyId("4-67"); // => "4'/0/67"
-const keyId = UBIP44.keyId("67"); // => "0'/0/67"
-const keyId = UBIP44.keyId({account: 4, index: 67}); // => "4'/0/67"
-const keyId = UBIP44.keyId({index: 67}); // => "0'/0/67"
-```
-
 ## Signing Transactions and Messages
 
 KMS wallets initialization
@@ -126,7 +106,22 @@ import { Signer } from "@web3-kms-signer/core";
 import { HDWallets } from "@web3-kms-signer/hd-wallets";
 
 const chainId = 3; // Ropsten
-const signer = new Signer(new HDWallets(hdProvider), chainId);
+const wallets = new HDWallets("situate prefer amazing differ lift slogan omit kind problem word repair cousin");
+const signer = new Signer(wallets, chainId);
+```
+
+keyId generation
+
+```javascript
+// With HD Wallets, the `keyId` is the derivation path, which specifies the route through which individual keys are generated from the master seed.
+const keyId = "0'/0/1"
+
+// A tool is available for generating derivation path easier.
+// Please see various use cases below :
+const keyId = UBIP44.keyId("4-67"); // => "4'/0/67"
+const keyId = UBIP44.keyId("67"); // => "0'/0/67"
+const keyId = UBIP44.keyId({account: 4, index: 67}); // => "4'/0/67"
+const keyId = UBIP44.keyId({index: 67}); // => "0'/0/67"
 ```
 
 Signing Transactions
