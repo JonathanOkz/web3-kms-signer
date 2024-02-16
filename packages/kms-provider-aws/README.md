@@ -95,7 +95,7 @@ import { KMSProviderAWS } from "@web3-kms-signer/kms-provider-aws";
 const awsConfig = {
     region: 'us-east-1',
     credentials: {
-        accesskeyId: 'YOUR_AWS_ACCESS_KEY_ID',
+        accessKeyId: 'YOUR_AWS_ACCESS_KEY_ID',
         secretAccessKey: 'YOUR_AWS_SECRET_ACCESS_KEY'
     }
 };
@@ -227,7 +227,7 @@ import  web3  from  "web3";
 const awsConfig = {
     region: 'us-east-1',
     credentials: {
-        accesskeyId: 'YOUR_AWS_ACCESS_KEY_ID',
+        accessKeyId: 'YOUR_AWS_ACCESS_KEY_ID',
         secretAccessKey: 'YOUR_AWS_SECRET_ACCESS_KEY'
     }
 };
@@ -324,7 +324,7 @@ import { KMSProviderAWS } from "@web3-kms-signer/kms-provider-aws";
 const awsConfig = {
     region: 'us-east-1',
     credentials: {
-        accesskeyId: 'YOUR_AWS_ACCESS_KEY_ID',
+        accessKeyId: 'YOUR_AWS_ACCESS_KEY_ID',
         secretAccessKey: 'YOUR_AWS_SECRET_ACCESS_KEY'
     }
 };
