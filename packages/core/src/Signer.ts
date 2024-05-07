@@ -1,8 +1,9 @@
 import { addHexPrefix, fromSigned, toUnsigned, bigIntToBuffer, hashPersonalMessage } from '@ethereumjs/util'
-import { Transaction, TxData } from '@ethereumjs/tx';
+import { TxData } from '@ethereumjs/tx';
 import { Common } from '@ethereumjs/common'
 import { Wallets } from './Wallets';
 import { UBuffer } from './Utils/UBuffer';
+import { TransactionFactory } from "@ethereumjs/tx/src/transactionFactory";
 
 /**
  * The Signer class provides functionality to sign Ethereum transactions and messages using
@@ -36,9 +37,9 @@ export class Signer {
      * @returns A Promise that resolves to the serialized transaction as a '0x'-prefixed hex string.
      */
     public async signTransaction(account: { keyId: string, address?: Buffer }, txData: TxData) {
-        const digest     = Transaction.fromTxData(txData, { common: this.common }).getMessageToSign();
+        const digest     = TransactionFactory.fromTxData(txData, { common: this.common }).getMessageToSign()
         const {r, s, v}  = await this.wallets.ecsign(account, digest, this.common?.chainId());
-        const signed     = Transaction.fromTxData({...txData, r, s, v}, { common: this.common });
+        const signed     = TransactionFactory.fromTxData({...txData, r, s, v}, { common: this.common });
     
         return addHexPrefix(signed.serialize().toString('hex'));
     }
