@@ -1,0 +1,1 @@
+{"version":3,"file":"KMSProvider.d.ts","sourceRoot":"","sources":["../../src/Provider/KMSProvider.ts"],"names":[],"mappings":";AAAA;;;;;;;GAOG;AACH,8BAAsB,WAAW;IAC7B;;;;;;OAMG;IACH,QAAQ,CAAC,eAAe,CAAC,KAAK,EAAE,MAAM,GAAI,OAAO,CAAC,MAAM,CAAC;IAEzD;;;;;;;;OAQG;IACH,QAAQ,CAAC,UAAU,CAAC,KAAK,EAAE,MAAM,EAAE,MAAM,EAAE,MAAM,GAAI,OAAO,CAAC,MAAM,CAAC;CACvE"}
