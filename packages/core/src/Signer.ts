@@ -62,12 +62,16 @@ export class Signer {
      * @returns A Promise that resolves to the '0x'-prefixed hex string of the signature.
      */
     public async signDigest(account: { keyId: string, address?: Buffer }, digest: string | Buffer) {
-        const {r, s, v} = await this.wallets.ecsign(account, UBuffer.bufferOrHex(digest));
-
-        const rStr = toUnsigned(fromSigned(r)).toString('hex');
-        const sStr = toUnsigned(fromSigned(s)).toString('hex');
-        const vStr = bigIntToBuffer(v).toString('hex');
-
+        const { r, s, v } = await this.wallets.ecsign(account, UBuffer.bufferOrHex(digest));
+    
+        // Convert to unsigned hex strings and pad to ensure consistent length
+        const rStr = toUnsigned(fromSigned(r)).toString('hex').padStart(64, '0');
+        const sStr = toUnsigned(fromSigned(s)).toString('hex').padStart(64, '0');
+        const vStr = bigIntToBuffer(v).toString('hex').padStart(2, '0');
+    
+        // Concatenate the padded strings and add hex prefix
         return addHexPrefix(rStr.concat(sStr, vStr));
     }
+    
+    
 }
